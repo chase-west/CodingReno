@@ -1,0 +1,13 @@
+#head li:hover{
+    background-color: #f5f5f5;
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+.btn btn-warning {
+    background-color: #f5f5f5;
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+
