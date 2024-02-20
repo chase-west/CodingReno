@@ -66,7 +66,17 @@ body.dark main h1 {
 }
 
 main {
-    padding: 2rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure the section takes up the full height of the viewport */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light box shadow */
+}
+
+main svg {
+  position: absolute; /* Position the arrow absolutely */
+  bottom: 20px; /* Adjust the distance from the bottom */
 }
 
 main h1 {
@@ -112,6 +122,25 @@ main h1 {
       transform: translateY(0);
     }
   }
+.animate {
+  opacity: 0;
+}
+  
+.animate.slideInFromTop {
+  animation: slideInFromTop 1s ease-out forwards;
+}
+  
+.animate.slideInFromBottom {
+  animation: slideInFromBottom 1s ease-out forwards;
+}
+
+.animate.slideInFromRight {
+  animation: slideInFromRight 1s ease-out forwards;
+}
+
+.animate.slideInFromLeft {
+  animation: slideInFromLeft 1s ease-out forwards;
+}
 
 
 footer {
