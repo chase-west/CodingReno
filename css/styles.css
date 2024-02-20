@@ -34,6 +34,26 @@
 }  
 
 
+/*Dark mode styling*/
+body.dark {
+  background-color: #07120d;
+  transition: all 0.5s ease;
+  color: white;
+}
+
+body.dark #theme-toggle-button {
+  color: #B863F6;
+  transition: all 0.5s ease;
+}
+
+#theme-toggle-button {
+  background-color: #212529;
+  border: none;
+  color: white;
+  scale: 1.5;
+  transition: all 0.5s ease;
+}
+
 main {
     background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
     padding: 2rem;
