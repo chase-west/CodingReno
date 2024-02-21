@@ -10,3 +10,24 @@ window.addEventListener('scroll', function() {
     }
   });
 });
+
+function scrollToMiddleBottom() {
+  // Get the height of the viewport
+  const viewportHeight = window.innerHeight;
+
+  // Calculate the position to scroll to (middle of the bottom of the screen)
+  const scrollToPosition = viewportHeight * 1;
+
+  // Scroll to the position with smooth animation
+  setTimeout(() => {
+    window.scrollTo({ top: scrollToPosition, behavior: 'smooth' });
+  }, 100);
+  
+  // Add the 'clicked' class to the button
+  document.querySelector('.button').classList.add('clicked');
+
+  // Remove the 'clicked' class from the button after 300 milliseconds
+  setTimeout(() => {
+    document.querySelector('.button').classList.remove('clicked');
+  }, 300);
+}

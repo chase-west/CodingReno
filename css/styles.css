@@ -33,6 +33,10 @@
 --neutral-900: #242226;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
 transition: all 0.5s ease;
 }
@@ -53,8 +57,13 @@ body.dark main h1 {
 transition: all 0.5s ease;
 }
 
+body.dark main button {
+  background-color: #07120d;
+  transition: all 0.5s ease;
+}
+
 .featurette-divider {
-color: var(--primary-500);
+color: var(--primary-700);
 }
 
 #theme-toggle-button {
@@ -74,9 +83,18 @@ min-height: 100vh; /* Ensure the section takes up the full height of the viewpor
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light box shadow */
 }
 
-main svg {
-position: absolute; /* Position the arrow absolutely */
-bottom: 20px; /* Adjust the distance from the bottom */
+main button {
+  position: absolute; /* Position the arrow absolutely */
+  bottom: 20px; /* Adjust the distance from the bottom */
+  border: none;
+  background-color: white;
+  color: var(--accent-600);
+  transition: all 0.5s ease;
+}
+
+.button.clicked {
+  color: var(--primary-500);
+  transition: all 0.5s ease;
 }
 
 
