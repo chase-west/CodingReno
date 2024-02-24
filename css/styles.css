@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
 /* Primary: Bright Blue Violet */
 --primary-100: #FCF2FF;
@@ -57,11 +63,12 @@ body.dark main h1 {
 transition: all 0.5s ease;
 }
 
-body.dark main button {
+body.dark #main-header button {
   background-color: #07120d;
   transition: all 0.5s ease;
 }
 
+/* Index Styling */
 .featurette-divider {
 color: var(--primary-700);
 }
@@ -74,16 +81,15 @@ scale: 1.5;
 transition: all 0.5s ease;
 }
 
-main {
+#main-header {
 padding: 2rem;
 display: flex;
 justify-content: center;
 align-items: center;
 min-height: 100vh; /* Ensure the section takes up the full height of the viewport */
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light box shadow */
 }
 
-main button {
+#main-header button {
   position: absolute; /* Position the arrow absolutely */
   bottom: 20px; /* Adjust the distance from the bottom */
   border: none;
@@ -98,7 +104,7 @@ main button {
 }
 
 
-main h1 {
+#main-header h1 {
 display: block;
 padding: 0.2em;
 transition: all 0.5s ease;
@@ -183,6 +189,17 @@ user-select: none;
 .bd-placeholder-img-lg {
 font-size: 3.5rem;
 }
+}
+
+/* About page styling */
+
+
+/*Join page styling*/
+.application-form {
+  width: 100%;
+  height: 90vh;
+  border: none;
+  padding: 2em;
 }
 
 .b-example-divider {
