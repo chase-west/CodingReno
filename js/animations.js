@@ -16,7 +16,7 @@ function scrollToMiddleBottom() {
   const viewportHeight = window.innerHeight;
 
   // Calculate the position to scroll to (middle of the bottom of the screen)
-  const scrollToPosition = viewportHeight * 1;
+  const scrollToPosition = viewportHeight * 1.1;
 
   // Scroll to the position with smooth animation
   setTimeout(() => {

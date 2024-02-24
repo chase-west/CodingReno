@@ -13,27 +13,25 @@
 </head>
 <body>
   <header class="p-3 text-bg-dark">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="index.html" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>
-          <li><a href="contact.html" class="nav-link px-2 text-white">Contact</a></li>
-        </ul>
-        <div class="text-end">
-          <a href="join.html"><button type="button" class="btn btn-outline-light me-2">Join Now</button></a>
-          <button id="theme-toggle-button" onclick="switchMode()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
-            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
-          </svg></button>
-        </div>
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+      </a>
+  
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="index.html" class="nav-link px-2 text-white">Home</a></li>
+        <li><a href="about.html" class="nav-link px-2 text-white">About</a></li>
+        <li><a href="contact.html" class="nav-link px-2 text-white">Contact</a></li>
+      </ul>
+      <div class="text-end">
+        <a href="join.html"><button type="button" class="btn btn-outline-light me-2">Join Now</button></a>
+        <button id="theme-toggle-button" onclick="switchMode()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
+          <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+        </svg></button>
       </div>
     </div>
   </header>
-  <main>
+  <main class="container">
     <h1>Coding Reno</h1>
     <button class="button" id="scroll-button" onclick="scrollToMiddleBottom()">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
@@ -49,8 +47,8 @@
         <div class="animate">
           <div class="row featurette">
             <div class="col-md-7">
-              <h2 class="featurette-heading fw-normal lh-1">Simple, weekly based projects.<span class="text-body-secondary"></span></h2>
-              <p class="lead">We believe that project based learning is the best way to develop skill as a programmer.</p>
+              <h2 class="featurette-heading fw-normal lh-1"><span class="first-word">Simple</span>, weekly based projects<span class="text-body-secondary"></span></h2>
+              <p class="lead">We believe that project based learning is the best way to develop skill as a programmer. Sometimes we even involve ourself in volunteer projects for our community!</p>
             </div>
             <div class="col-md-5">
               <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"/><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
@@ -62,7 +60,7 @@
         <div class="animate">
           <div class="row featurette">
             <div class="col-md-7 order-md-2">
-              <h2 class="featurette-heading fw-normal lh-1">Find a community.<span class="text-body-secondary"></span></h2>
+              <h2 class="featurette-heading fw-normal lh-1">Find a <span class="last-word">community</span><span class="text-body-secondary"></span></h2>
               <p class="lead">Connect with us and find support on your programming journey.</p>
             </div>
             <div class="col-md-5 order-md-1">
@@ -75,7 +73,7 @@
         <div class="animate">
           <div class="row featurette">
             <div class="col-md-7">
-              <h2 class="featurette-heading fw-normal lh-1">Present every week.<span class="text-body-secondary"></span></h2>
+              <h2 class="featurette-heading fw-normal lh-1"><span class="first-word">Present</span> every week<span class="text-body-secondary"></span></h2>
               <p class="lead">After completing the weekly projects we show what we made on a group call or in person.</p>
             </div>
             <div class="col-md-5">
@@ -92,7 +90,7 @@
 
 
     <footer>
-      <p>&copy; 2024 Coding Club Reno. &middot; <a href="#"></p>
+      <p>&copy; 2024 Coding Club Reno &middot; <a href="#"></p>
     </footer>
 
   </body>

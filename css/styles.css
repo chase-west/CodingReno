@@ -109,6 +109,20 @@ background-image: linear-gradient(to bottom right, var(--primary-500), var(--pri
 background-clip: text; /* Clip the background to the padding box */
 color: transparent; /* Hide the text */
 }
+
+h2.featurette-heading .last-word {
+  background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
+  background-clip: text; /* Clip the background to the padding box */
+  color: transparent; /* Hide the text */
+}
+
+h2.featurette-heading .first-word {
+  background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
+  background-clip: text; /* Clip the background to the padding box */
+  color: transparent; /* Hide the text */
+}
+
+
 @keyframes slideInFromLeft {
 0% {
 transform: translateX(-100%);
