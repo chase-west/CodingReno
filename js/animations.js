@@ -20,7 +20,7 @@ function scrollToMiddleBottom() {
   // Scroll to the position with smooth animation
   $('html, body').animate({
     scrollTop: scrollToPosition
-  }, 150); // 800 milliseconds for smooth scrolling
+  }, 800); // 800 milliseconds for smooth scrolling
 
   // Add the 'clicked' class to the button
   $('#scroll-button').addClass('clicked');
