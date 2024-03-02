@@ -98,9 +98,10 @@ min-height: 100vh; /* Ensure the section takes up the full height of the viewpor
   transition: all 0.5s ease;
 }
 
-.button.clicked {
+
+#scroll-button.button.clicked {
   color: var(--primary-500);
-  transition: all 0.5s ease;
+  transform: translateY(80px);
 }
 
 
@@ -200,6 +201,10 @@ font-size: 3.5rem;
 
 /* About page styling */
 
+
+/*Service Styling*/
+.service h1 {
+}
 
 /*Join page styling*/
 
