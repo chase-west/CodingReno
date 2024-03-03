@@ -124,6 +124,12 @@ color: transparent; /* Hide the text */
   }
 }
 
+@media screen and (max-width: 511px) {
+  img {
+    width: 70%;
+  }
+}
+
 h2.featurette-heading .last-word {
   background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
   background-clip: text; /* Clip the background to the padding box */
