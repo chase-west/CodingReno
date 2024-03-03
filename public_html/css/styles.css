@@ -340,3 +340,18 @@ z-index: 1500;
 .bd-mode-toggle .dropdown-menu .active .bi {
 display: block !important;
 }
+
+
+.about h1 {
+  padding-bottom: 0.1em;
+  font-size: 8em;
+  text-align: center;
+  background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
+  background-clip: text; /* Clip the background to the padding box */
+  color: transparent; /* Hide the text */
+}
+
+.about p {
+  text-align: center;
+  font-size: 2em;
+}
