@@ -342,16 +342,59 @@ display: block !important;
 }
 
 
+/* Additional CSS for About page */
+
+.about {
+  border: none;
+  padding-top: 10em;
+  padding-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .about h1 {
   padding-bottom: 0.1em;
-  font-size: 8em;
-  text-align: center;
+  font-size: 6em;
   background-image: linear-gradient(to bottom right, var(--primary-500), var(--primary-200));
   background-clip: text; /* Clip the background to the padding box */
   color: transparent; /* Hide the text */
 }
 
 .about p {
-  text-align: center;
-  font-size: 2em;
+  font-size: 1.8em;
+  max-width: 60%;
+  line-height: 1.5em;
 }
+
+/* Additional CSS for About page */
+
+.about img {
+  max-width: 100%; /* Ensure the image doesn't exceed its container */
+  height: auto; /* Maintain the aspect ratio */
+  margin-top: 1em; /* Adjust margin as needed */
+  box-shadow: 0 0 20px var(--box-shadow-color); /* Use CSS variable for box-shadow color */
+}
+
+body.dark .about img {
+  --box-shadow-color: rgba(146, 52, 235, 0.5); /* Purple gradient shadow */; /* Gray shadow color in dark mode */
+}
+
+body:not(.dark) .about img {
+  --box-shadow-color: rgb(87, 46, 122); /* Purple gradient shadow */; /* Black shadow color in light mode */
+}
+
+
+
+@media screen and (max-width: 882px) {
+  .about h1 {
+    font-size: 4em;
+  }
+  .about p {
+    font-size: 1.5em;
+    max-width: 80%; /* Adjust the width for smaller screens */
+  }
+}
+
