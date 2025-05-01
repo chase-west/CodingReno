@@ -4,14 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coding Club Reno</title>
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Google Font - Using Inter for clean modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
+      theme: { 
+        extend: { 
+          fontFamily: { 
+            sans: ['Inter', 'sans-serif'] 
+          },
+          colors: {
+            primary: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            secondary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+        } 
+      }
     };
   </script>
   <!-- Alpine.js -->
@@ -23,6 +55,26 @@
   <style>
     /* Smooth scrolling */
     html { scroll-behavior: smooth; }
+    
+    /* Background gradient effect for hero section */
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.1) 100%);
+    }
+    
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .dark .glass {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Canvas styling */
     #hero-canvas {
       position: absolute;
       top: 0;
@@ -31,112 +83,307 @@
       height: 100%;
       z-index: 1;
     }
+    
+    /* Modern hover effects */
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Soft gradient cards */
+    .gradient-card {
+      background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+      border-radius: 1rem;
+      backdrop-filter: blur(2rem);
+    }
+    
+    .dark .gradient-card {
+      background: linear-gradient(to right bottom, rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.3));
+    }
+    
+    /* Custom cursor */
     .cursor {
       position: fixed;
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: rgba(16, 185, 129, 0.5);
       pointer-events: none;
       mix-blend-mode: difference;
       transform: translate(-50%, -50%);
       transition: transform 0.1s ease;
       z-index: 9999;
     }
+    
+    /* Pill button styles */
+    .pill-button {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pill-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .pill-button:hover::after {
+      opacity: 1;
+    }
+    
+    /* Animated gradient text */
+    .gradient-text {
+      background: linear-gradient(90deg, #10b981, #3b82f6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 8s ease infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
   <div class="cursor" id="custom-cursor"></div>
 
-  <!-- Navigation Bar -->
-  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="scrolled ? 'backdrop-blur-lg bg-white/70 dark:bg-gray-900/70 shadow-lg' : 'bg-transparent'">
-    <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-2' : 'py-4'">
-      <a href="#hero" class="text-2xl font-semibold">CodeClub Reno</a>
-      <!-- Desktop Links -->
+  <!-- Navigation Bar - Now using glass morphism -->
+ <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
+    <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
+      <a href="#hero" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+        <span class="text-primary-600 dark:text-primary-400 mr-1">&#60;</span>
+        <span class="gradient-text">CodeClub Reno</span>
+        <span class="text-primary-600 dark:text-primary-400 ml-1">&#62;</span>
+      </a>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#projects" class="hover:text-blue-500 transition">Projects</a>
-        <a href="#community" class="hover:text-blue-500 transition">Community</a>
-        <a href="#present" class="hover:text-blue-500 transition">Present</a>
-        <a href="join.html" class="px-5 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full shadow-lg hover:opacity-90 transition">Join Now</a>
-        <button @click="darkMode = !darkMode" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:opacity-80 transition">
-          <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-          </svg>
-          <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path d="M20.354 15.354A9 9 0 018.646 3.646 9 9 0 0012 21a9 9 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-          </svg>
-        </button>
+        <a href="#projects" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+        <a href="#community" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+        <a href="#present" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
       </div>
-      <!-- Mobile Menu Button -->
       <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path x-show="menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
+    <div x-show="menuOpen" x-transition class="glass px-6 py-5 space-y-4 md:hidden">
+      <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+      <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+      <a href="#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+    </div>
+  </nav>
+    
     <!-- Mobile Menu -->
-    <div x-show="menuOpen" x-transition class="bg-white dark:bg-gray-800 px-6 py-4 space-y-3 md:hidden">
-      <a href="#projects" @click="menuOpen = false" class="block">Projects</a>
-      <a href="#community" @click="menuOpen = false" class="block">Community</a>
-      <a href="#present" @click="menuOpen = false" class="block">Present</a>
-      <a href="join.html" @click="menuOpen = false" class="block">Join Now</a>
-      <button @click="darkMode = !darkMode" class="flex items-center mt-2 space-x-2">
-        <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="..."/></svg>
+    <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden">
+      <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+      <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+      <a href="#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      <button @click="darkMode = !darkMode" class="flex items-center justify-between w-full mt-4 py-2 space-x-2">
         <span>Toggle Theme</span>
+        <div class="p-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
+          <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </div>
       </button>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- Hero Section with enhanced 3D particles -->
+  <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden hero-gradient">
     <canvas id="hero-canvas"></canvas>
-    <div class="absolute inset-0 bg-black/30"></div>
-    <div class="relative z-10 text-center px-6">
-      <h1 class="text-5xl md:text-7xl font-bold mb-4 text-white hero-text" data-scroll-speed="0.1">Coding Club Reno</h1>
-      <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-xl mx-auto hero-text" data-scroll-speed="0.05">Building community-driven, project-based learning experiences for aspiring developers.</p>
-      <a href="#projects" class="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium rounded-full shadow-lg hover:scale-105 transform transition">Get Started</a>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40"></div>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div class="inline-block mb-6 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium text-white">
+        Learn. Create. Connect.
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white hero-text" data-scroll-speed="0.1">
+        <span class="block">Where Developers</span>
+        <span class="gradient-text">Grow Together</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-xl mx-auto hero-text opacity-90" data-scroll-speed="0.05">
+        Building community-driven, project-based learning experiences for developers of all skill levels in Reno.
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#projects" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+          Explore Projects
+        </a>
+        <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium rounded-full shadow hover:shadow-lg hover:bg-white/20 transition">
+          Join Our Community
+        </a>
+      </div>
     </div>
     <div class="absolute bottom-8 w-full text-center">
-      <a href="#projects" class="animate-bounce inline-block">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      <a href="#projects" class="animate-bounce inline-block p-2.5 rounded-full glass">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </a>
     </div>
   </section>
 
-  <!-- Content Sections with SVG separators -->
-  <section id="projects" class="relative py-20 bg-white dark:bg-gray-900">
-    <svg class="absolute top-0 left-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,60 C480,0 960,120 1440,60 L1440,0 L0,0 Z" fill="currentColor"/></svg>
+  <!-- Projects Section with cards -->
+  <section id="projects" class="relative py-24 bg-white dark:bg-gray-900">
+    <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black/10 to-transparent"></div>
     <div class="container mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-4xl font-bold mb-4">Weekly Challenges</h2>
-          <p class="text-lg mb-6">Engage in bite-sized projects every week to build real-world skills and expand your portfolio.</p>
-          <a href="join.html" class="px-5 py-2 bg-blue-600 text-white rounded-full hover:opacity-90 transition">Join a Challenge</a>
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-sm font-medium mb-4">Weekly Challenges</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Build Real Projects</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Engage in bite-sized projects every week to build real-world skills and expand your portfolio.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Project Card 1 -->
+        <div class="gradient-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Frontend Challenges</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">Build responsive UI components and interactive web applications using modern frameworks.</p>
+          <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
-        <div><img src="images/projectpic.jpg" alt="Projects" class="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500" loading="lazy"/></div>
+        
+        <!-- Project Card 2 -->
+        <div class="gradient-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-secondary-500 to-secondary-600 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Backend Projects</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">Create APIs, work with databases, and build server-side applications with industry best practices.</p>
+          <a href="#" class="inline-flex items-center text-secondary-600 dark:text-secondary-400 font-medium">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+        
+        <!-- Project Card 3 -->
+        <div class="gradient-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Full Stack Challenges</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">Develop complete applications from interface design to database architecture and deployment.</p>
+          <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium">
+            Learn more
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+          Join a Challenge
+        </a>
       </div>
     </div>
   </section>
 
-  <section id="community" class="py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="order-2 md:order-1"><img src="images/communitypic.jpg" alt="Community" class="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500" loading="lazy"/></div>
-      <div class="order-1 md:order-2">
-        <h2 class="text-4xl font-bold mb-4">Inclusive Community</h2>
-        <p class="text-lg mb-6">Collaborate, mentor, and share feedback in a welcoming space designed for all skill levels.</p>
-        <a href="join.html" class="px-5 py-2 bg-indigo-600 text-white rounded-full hover:opacity-90 transition">Join Us</a>
+  <!-- Community Section -->
+  <section id="community" class="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
+    <div class="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white dark:from-gray-900 to-transparent"></div>
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div class="order-2 md:order-1 relative">
+          <div class="absolute -top-6 -left-6 w-24 h-24 bg-primary-400/10 rounded-full blur-2xl"></div>
+          <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-400/10 rounded-full blur-2xl"></div>
+          <img src="images/communitypic.jpg" alt="Community" class="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500 relative z-10" />
+          
+          <!-- Floating stats cards -->
+        
+          
+          <div class="absolute -bottom-4 -left-4 md:-left-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 w-40 glass">
+            <div class="text-3xl font-bold text-secondary-600 dark:text-secondary-400">200+</div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">Projects Created</div>
+          </div>
+        </div>
+        
+        <div class="order-1 md:order-2">
+          <span class="inline-block px-3 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 text-sm font-medium mb-4">Community</span>
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Grow Together in a Supportive Space</h2>
+          <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">Join a community of passionate developers where you can collaborate, mentor others, and receive valuable feedback in a welcoming environment designed for all skill levels.</p>
+          
+          <!-- Community Features -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 mt-1 bg-secondary-100 dark:bg-secondary-900/30 rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary-600 dark:text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium">Peer Mentorship</h3>
+                <p class="text-gray-600 dark:text-gray-400">Learn from experienced developers and help others along their journey.</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="flex-shrink-0 mt-1 bg-secondary-100 dark:bg-secondary-900/30 rounded-full p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary-600 dark:text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium">Weekly Discussions</h3>
+                <p class="text-gray-600 dark:text-gray-400">Engage in thought-provoking discussions about the latest tech trends.</p>
+              </div>
+            </div>
+          </div>
+          
+          <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+            Join Our Community
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="present" class="py-20 bg-white dark:bg-gray-900">
-    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h2 class="text-4xl font-bold mb-4">Showcase Your Work</h2>
-        <p class="text-lg mb-6">Present completed projects on calls or meetups to refine your presentation and communication skills.</p>
-        <a href="join.html" class="px-5 py-2 bg-blue-500 text-white rounded-full hover:opacity-90 transition">Get on Stage</a>
+  
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+    <div class="container mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Coding Journey?</h2>
+        <p class="text-lg text-white/90 mb-8">Join our diverse community of developers, build projects, and grow your skills in a supportive environment.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-white text-primary-600 font-medium rounded-full shadow-lg hover:shadow-xl transition">
+            Join CodeClub Reno
+          </a>
+          <a href="#projects" class="pill-button inline-block px-8 py-3.5 bg-white/10 border border-white/20 text-white font-medium rounded-full shadow hover:shadow-lg hover:bg-white/20 transition">
+            Learn More
+          </a>
+        </div>
       </div>
-      <div><img src="images/presentpic.png" alt="Present" class="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500" loading="lazy"/></div>
     </div>
   </section>
 
