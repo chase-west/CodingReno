@@ -11,10 +11,10 @@
   <script>
     tailwind.config = {
       darkMode: 'class',
-      theme: { 
-        extend: { 
-          fontFamily: { 
-            sans: ['Inter', 'sans-serif'] 
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
           },
           colors: {
             primary: {
@@ -23,7 +23,7 @@
               200: '#a7f3d0',
               300: '#6ee7b7',
               400: '#34d399',
-              500: '#10b981',
+              500: '#10b981', // Main primary color
               600: '#059669',
               700: '#047857',
               800: '#065f46',
@@ -35,14 +35,14 @@
               200: '#bfdbfe',
               300: '#93c5fd',
               400: '#60a5fa',
-              500: '#3b82f6',
+              500: '#3b82f6', // Main secondary color
               600: '#2563eb',
               700: '#1d4ed8',
               800: '#1e40af',
               900: '#1e3a8a',
             }
           },
-        } 
+        }
       }
     };
   </script>
@@ -55,12 +55,12 @@
   <style>
     /* Smooth scrolling */
     html { scroll-behavior: smooth; }
-    
-    /* Background gradient effect for hero section */
-    .hero-gradient {
+
+    /* Background effect for hero section (removed gradient) */
+    /* .hero-gradient {
       background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.1) 100%);
-    }
-    
+    } */
+
     /* Glass morphism effect */
     .glass {
       background: rgba(255, 255, 255, 0.05);
@@ -68,12 +68,12 @@
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
+
     .dark .glass {
       background: rgba(0, 0, 0, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.05);
     }
-    
+
     /* Canvas styling */
     #hero-canvas {
       position: absolute;
@@ -83,28 +83,28 @@
       height: 100%;
       z-index: 1;
     }
-    
+
     /* Modern hover effects */
     .hover-lift {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
     .hover-lift:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
-    
-    /* Soft gradient cards */
-    .gradient-card {
-      background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+
+    /* Solid cards (removed gradient) */
+    .solid-card {
+      background-color: rgba(255, 255, 255, 0.9); /* Light mode solid background */
       border-radius: 1rem;
-      backdrop-filter: blur(2rem);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
-    
-    .dark .gradient-card {
-      background: linear-gradient(to right bottom, rgba(17, 24, 39, 0.7), rgba(17, 24, 39, 0.3));
+
+    .dark .solid-card {
+      background-color: rgba(31, 41, 55, 0.8); /* Dark mode solid background (gray-800 with opacity) */
     }
-    
+
     /* Custom cursor */
     .cursor {
       position: fixed;
@@ -118,15 +118,15 @@
       transition: transform 0.1s ease;
       z-index: 9999;
     }
-    
-    /* Pill button styles */
+
+    /* Pill button styles (removed gradient hover effect) */
     .pill-button {
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
-    
-    .pill-button::after {
+
+    /* .pill-button::after {
       content: '';
       position: absolute;
       top: 0;
@@ -137,26 +137,14 @@
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    
+
     .pill-button:hover::after {
       opacity: 1;
-    }
-    
-    /* Animated gradient text */
-    .gradient-text {
-      background: linear-gradient(90deg, #10b981, #3b82f6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradient 8s ease infinite;
-      background-size: 200% 200%;
-    }
-    
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+    } */
+
+    /* Removed animated gradient text styles */
+    /* .gradient-text { ... } */
+    /* @keyframes gradient { ... } */
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -167,14 +155,16 @@
     <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
       <a href="#hero" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
         <span class="text-primary-600 dark:text-primary-400 mr-1">&#60;</span>
-        <span class="gradient-text">CodeClub Reno</span>
+        <!-- Removed gradient-text class -->
+        <span class="text-primary-600 dark:text-primary-400">CodeClub Reno</span>
         <span class="text-primary-600 dark:text-primary-400 ml-1">&#62;</span>
       </a>
       <div class="hidden md:flex items-center space-x-8">
         <a href="#projects" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
         <a href="#community" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
         <a href="#present" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
-        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+        <!-- Replaced gradient with solid background -->
+        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
       </div>
       <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -187,7 +177,8 @@
       <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
       <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
       <a href="#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
-      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      <!-- Replaced gradient with solid background -->
+      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
     </div>
   </nav>
     
@@ -196,7 +187,8 @@
       <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
       <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
       <a href="#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
-      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      <!-- Replaced gradient with solid background -->
+      <a href="join.html" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
       <button @click="darkMode = !darkMode" class="flex items-center justify-between w-full mt-4 py-2 space-x-2">
         <span>Toggle Theme</span>
         <div class="p-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
@@ -217,13 +209,15 @@
       </div>
       <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white hero-text" data-scroll-speed="0.1">
         <span class="block">Where Developers</span>
-        <span class="gradient-text">Grow Together</span>
+        <!-- Replaced gradient-text with solid color -->
+        <span class="text-primary-400">Grow Together</span>
       </h1>
       <p class="text-lg md:text-xl mb-10 text-gray-200 max-w-xl mx-auto hero-text opacity-90" data-scroll-speed="0.05">
         Building community-driven, project-based learning experiences for developers of all skill levels in Reno.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="#projects" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+        <!-- Replaced gradient with solid background -->
+        <a href="#projects" class="pill-button inline-block px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
           Explore Projects
         </a>
         <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium rounded-full shadow hover:shadow-lg hover:bg-white/20 transition">
@@ -240,7 +234,8 @@
 
   <!-- Updated Projects Section -->
 <section id="projects" class="relative py-24 bg-white dark:bg-gray-900">
-  <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black/10 to-transparent"></div>
+  <!-- Removed top gradient overlay -->
+  <!-- <div class="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-black/10 to-transparent"></div> -->
   <div class="container mx-auto px-6">
     <div class="text-center mb-16">
       <span class="inline-block px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-sm font-medium mb-4">Code Challenges & Projects</span>
@@ -250,9 +245,9 @@
       </p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
-      <!-- Challenge Card -->
-      <div class="gradient-card p-6 hover-lift">
-        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center text-white">
+      <!-- Challenge Card - Replaced gradient-card with solid-card, updated icon bg -->
+      <div class="solid-card p-6 hover-lift">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-secondary-500 flex items-center justify-center text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.25 6.75L3.75 12l4.5 5.25M15.75 6.75L20.25 12l-4.5 5.25" />
           </svg>
@@ -268,9 +263,9 @@
           </svg>
         </a>
       </div>
-      <!-- Website Project Card -->
-      <div class="gradient-card p-6 hover-lift">
-        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-secondary-500 to-secondary-600 flex items-center justify-center text-white">
+      <!-- Website Project Card - Replaced gradient-card with solid-card, updated icon bg -->
+      <div class="solid-card p-6 hover-lift">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-secondary-500 flex items-center justify-center text-white">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
@@ -279,7 +274,7 @@
         <p class="text-gray-600 dark:text-gray-400 mb-4">
           Build responsive, interactive websites using HTML, CSS, JavaScript, and frameworks like React and Vue.
         </p>
-        <a href="#" class="inline-flex items-center text-secondary-600 dark:text-secondary-400 font-medium">
+        <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium">
           Learn more
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -287,11 +282,9 @@
         </a>
       </div>
       <!-- Library Exploration Card -->
-      <div class="gradient-card p-6 hover-lift">
-        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
+      <div class="solid-card p-6 hover-lift">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-secondary-500 flex items-center justify-center text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /> </svg>
         </div>
         <h3 class="text-xl font-semibold mb-2">Library Explorations</h3>
         <p class="text-gray-600 dark:text-gray-400 mb-4">
@@ -306,7 +299,7 @@
       </div>
     </div>
     <div class="text-center mt-12">
-      <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+      <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
         Join a Project
       </a>
     </div>
@@ -316,28 +309,17 @@
 
   <!-- Community Section -->
   <section id="community" class="py-24 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
-    <div class="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white dark:from-gray-900 to-transparent"></div>
     <div class="container mx-auto px-6 relative z-10">
       <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div class="order-2 md:order-1 relative">
-          <div class="absolute -top-6 -left-6 w-24 h-24 bg-primary-400/10 rounded-full blur-2xl"></div>
-          <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary-400/10 rounded-full blur-2xl"></div>
-          <img src="images/communitypic.jpg" alt="Community" class="rounded-2xl shadow-xl hover:scale-105 transition-transform duration-500 relative z-10" />
-          
-          <!-- Floating stats cards -->
-        
-          
-          <div class="absolute -bottom-4 -left-4 md:-left-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4 w-40 glass">
-            <div class="text-3xl font-bold text-secondary-600 dark:text-secondary-400">200+</div>
-            <div class="text-sm text-gray-600 dark:text-gray-400">Projects Created</div>
-          </div>
+          <img src="images/communitypic.jpg" alt="Coding community members collaborating" class="rounded-lg shadow-xl w-full h-auto object-cover">
         </div>
-        
+
         <div class="order-1 md:order-2">
           <span class="inline-block px-3 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 text-sm font-medium mb-4">Community</span>
           <h2 class="text-3xl md:text-4xl font-bold mb-6">Grow Together in a Supportive Space</h2>
           <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">Join a community of passionate developers where you can collaborate, mentor others, and receive valuable feedback in a welcoming environment designed for all skill levels.</p>
-          
+
           <!-- Community Features -->
           <div class="space-y-4 mb-8">
             <div class="flex items-start">
@@ -351,7 +333,7 @@
                 <p class="text-gray-600 dark:text-gray-400">Learn from experienced developers and help others along their journey.</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
               <div class="flex-shrink-0 mt-1 bg-secondary-100 dark:bg-secondary-900/30 rounded-full p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-secondary-600 dark:text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -364,8 +346,9 @@
               </div>
             </div>
           </div>
-          
-          <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+
+          <!-- Replaced gradient with solid background -->
+          <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-secondary-500 hover:bg-secondary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
             Join Our Community
           </a>
         </div>
@@ -373,9 +356,9 @@
     </div>
   </section>
 
-  
-  <!-- CTA Section -->
-  <section class="py-20 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
+
+  <!-- CTA Section - Replaced gradient with solid background -->
+  <section class="py-20 bg-primary-600 text-white">
     <div class="container mx-auto px-6">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Start Your Coding Journey?</h2>
@@ -412,7 +395,7 @@
 
     // Custom cursor effect
     const cursor = document.getElementById('custom-cursor');
-    
+
     document.addEventListener('mousemove', (e) => {
       gsap.to(cursor, {
         x: e.clientX,
@@ -438,6 +421,7 @@
     // 3D Animation with Three.js
     function initHero() {
       const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return; // Exit if canvas not found
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({
@@ -445,150 +429,166 @@
         antialias: true,
         alpha: true
       });
-      
+
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      
+
       // Create particles
       const particlesGeometry = new THREE.BufferGeometry();
       const particleCount = 1500;
-      
+
       const posArray = new Float32Array(particleCount * 3);
       const scaleArray = new Float32Array(particleCount);
-      
+
       for (let i = 0; i < particleCount * 3; i += 3) {
         // Position
         posArray[i] = (Math.random() - 0.5) * 10;
         posArray[i + 1] = (Math.random() - 0.5) * 10;
         posArray[i + 2] = (Math.random() - 0.5) * 10;
-        
+
         // Scale
         scaleArray[i / 3] = Math.random();
       }
-      
+
       particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
       particlesGeometry.setAttribute('scale', new THREE.BufferAttribute(scaleArray, 1));
-      
+
       // Create material
       const particlesMaterial = new THREE.PointsMaterial({
         size: 0.03,
-        color: 0x6ee7b7,
+        color: 0x6ee7b7, // primary-300
         transparent: true,
         opacity: 0.8,
         sizeAttenuation: true
       });
-      
+
       // Create particles mesh
       const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
       scene.add(particlesMesh);
-      
+
       // Create lines between particles
       const linesMaterial = new THREE.LineBasicMaterial({
-        color: 0x6ee7b7,
+        color: 0x6ee7b7, // primary-300
         transparent: true,
         opacity: 0.2
       });
-      
+
+      let lines = null; // Initialize lines
+
       // Create connections between nearby particles
       function createConnections() {
+         if (lines) { // Remove old lines if they exist
+            scene.remove(lines);
+            lines.geometry.dispose();
+            lines.material.dispose();
+        }
+
         const positions = particlesGeometry.attributes.position.array;
         const linesGeometry = new THREE.BufferGeometry();
         const linePositions = [];
-        
+
         const maxDistance = 1.5; // Maximum distance for connection
-        
+
         for (let i = 0; i < positions.length; i += 3) {
           const x1 = positions[i];
           const y1 = positions[i + 1];
           const z1 = positions[i + 2];
-          
+
           for (let j = i + 3; j < positions.length; j += 3) {
             const x2 = positions[j];
             const y2 = positions[j + 1];
             const z2 = positions[j + 2];
-            
+
             const distance = Math.sqrt(
-              Math.pow(x2 - x1, 2) + 
-              Math.pow(y2 - y1, 2) + 
+              Math.pow(x2 - x1, 2) +
+              Math.pow(y2 - y1, 2) +
               Math.pow(z2 - z1, 2)
             );
-            
+
             if (distance < maxDistance) {
               linePositions.push(x1, y1, z1);
               linePositions.push(x2, y2, z2);
             }
           }
         }
-        
+
         linesGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-        const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
+        lines = new THREE.LineSegments(linesGeometry, linesMaterial);
         scene.add(lines);
-        
-        return lines;
       }
-      
-      const lines = createConnections();
-      
+
+      createConnections(); // Initial connection creation
+
       // Position camera
       camera.position.z = 5;
-      
+
       // Mouse movement effect
       let mouseX = 0;
       let mouseY = 0;
-      
+
       document.addEventListener('mousemove', (event) => {
         mouseX = (event.clientX / window.innerWidth) * 2 - 1;
         mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
       });
-      
+
       // Handle window resize
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
+        // Optional: Recreate connections on resize if needed, though often not necessary
+        // createConnections();
       });
-      
+
       // Animation loop
       function animate() {
         requestAnimationFrame(animate);
-        
+
         // Rotate particles based on mouse position
-        particlesMesh.rotation.x += 0.001;
-        particlesMesh.rotation.y += 0.001;
-        
-        // Adjust rotation based on mouse position
-        particlesMesh.rotation.x += mouseY * 0.0008;
-        particlesMesh.rotation.y += mouseX * 0.0008;
-        
-        lines.rotation.x = particlesMesh.rotation.x;
-        lines.rotation.y = particlesMesh.rotation.y;
-        
+        particlesMesh.rotation.x += 0.0005; // Slightly slower rotation
+        particlesMesh.rotation.y += 0.0005;
+
+        // Adjust rotation based on mouse position (subtler effect)
+        particlesMesh.rotation.x += mouseY * 0.0005;
+        particlesMesh.rotation.y += mouseX * 0.0005;
+
+        // Ensure lines follow particle rotation
+        if(lines) {
+            lines.rotation.x = particlesMesh.rotation.x;
+            lines.rotation.y = particlesMesh.rotation.y;
+        }
+
+
         renderer.render(scene, camera);
       }
-      
+
       animate();
     }
-    
+
     // Initialize the 3D effect when DOM is loaded
     window.addEventListener('DOMContentLoaded', initHero);
-    
+
     // Text parallax effect
     const heroTexts = document.querySelectorAll('.hero-text');
-    
+
     window.addEventListener('mousemove', (e) => {
       const x = e.clientX / window.innerWidth;
       const y = e.clientY / window.innerHeight;
-      
+
       heroTexts.forEach(text => {
-        const speed = parseFloat(text.getAttribute('data-scroll-speed'));
-        const xOffset = (x - 0.5) * 30 * speed;
-        const yOffset = (y - 0.5) * 30 * speed;
-        
-        gsap.to(text, {
-          x: xOffset,
-          y: yOffset,
-          duration: 0.5
-        });
+        const speedAttr = text.getAttribute('data-scroll-speed');
+        if (speedAttr) { // Check if attribute exists
+            const speed = parseFloat(speedAttr);
+            const xOffset = (x - 0.5) * 30 * speed;
+            const yOffset = (y - 0.5) * 30 * speed;
+
+            gsap.to(text, {
+              x: xOffset,
+              y: yOffset,
+              duration: 0.5,
+              ease: 'power1.out' // Add easing
+            });
+        }
       });
     });
   </script>
