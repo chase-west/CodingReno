@@ -327,39 +327,6 @@
     </div>
   </footer>
 
-  <!-- Form submission and success modal -->
-  <div x-data="{ showSuccess: false }" class="relative z-50">
-    <!-- Success Modal -->
-    <div x-show="showSuccess" x-transition class="fixed inset-0 flex items-center justify-center z-50 p-4">
-      <!-- Backdrop -->
-      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="showSuccess = false"></div>
-      
-      <!-- Modal -->
-      <div class="relative bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md mx-auto shadow-2xl">
-        <button @click="showSuccess = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h3 class="text-2xl font-bold mb-2">Application Submitted!</h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">
-            Thank you for your interest in joining Coding Reno. We've received your application and will be in touch shortly.
-          </p>
-          <button @click="showSuccess = false" class="pill-button px-8 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     // Background animation with Three.js
     document.addEventListener('DOMContentLoaded', () => {
