@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches), menuOpen: false, scrolled: false }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))" x-bind:class="{ 'dark': darkMode }" @scroll.window="scrolled = window.pageYOffset > 50">
 <head>
@@ -126,28 +125,9 @@
       overflow: hidden;
     }
 
-    /* Form styling */
-    .form-input {
-      @apply block w-full px-4 py-3 rounded-lg border-0 ring-1 ring-gray-300 dark:ring-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all;
-    }
-
-    .form-label {
-      @apply block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300;
-    }
-
-    .form-select {
-      @apply block w-full px-4 py-3 rounded-lg border-0 ring-1 ring-gray-300 dark:ring-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all;
-    }
-
-    .form-checkbox {
-      @apply h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800/70;
-    }
-
     /* Custom Google Form container */
     .google-form-container {
       width: 100%;
-      height: 100%;
-      min-height: 700px;
       border-radius: 1rem;
       overflow: hidden;
       backdrop-filter: blur(8px);
@@ -161,46 +141,12 @@
 
     .google-form-container iframe {
       width: 100%;
-      height: 100%;
-      min-height: 700px;
+      height: 1000px;
+      min-height: 900px;
       border: none;
-    }
-
-    /* Floating label input */
-    .floating-label {
-      position: relative;
+      display: block;
     }
     
-    .floating-label input {
-      height: 60px;
-      padding-top: 20px;
-    }
-    
-    .floating-label label {
-      position: absolute;
-      left: 16px;
-      top: 18px;
-      font-size: 14px;
-      color: #6b7280;
-      transition: all 0.2s ease;
-      pointer-events: none;
-    }
-    
-    .floating-label input:focus ~ label,
-    .floating-label input:not(:placeholder-shown) ~ label {
-      top: 8px;
-      font-size: 12px;
-      color: #10b981;
-    }
-    
-    .dark .floating-label label {
-      color: #9ca3af;
-    }
-    
-    .dark .floating-label input:focus ~ label,
-    .dark .floating-label input:not(:placeholder-shown) ~ label {
-      color: #34d399;
-    }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -220,6 +166,7 @@
         <a href="index.html#community" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
         <a href="index.html#present" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
         <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      </div>
       <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -227,21 +174,22 @@
         </svg>
       </button>
     </div>
-    
-    <!-- Mobile Menu -->
-    <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden">
-      <a href="index.html#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
-      <a href="index.html#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
-      <a href="index.html#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
-      <button @click="darkMode = !darkMode" class="flex items-center justify-between w-full mt-4 py-2 space-x-2">
-        <span>Toggle Theme</span>
-        <div class="p-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
-          <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-        </div>
-      </button>
-    </div>
   </nav>
+
+  <!-- Mobile Menu - Moved outside nav and added overlay styles -->
+  <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden fixed top-0 left-0 w-full pt-20 mt-0 bg-gray-50 dark:bg-gray-900 z-40">
+    <a href="index.html#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+    <a href="index.html#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+    <a href="index.html#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+    <a href="join.html" @click="menuOpen = false" class="pill-button block text-center text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+    <button @click="darkMode = !darkMode" class="flex items-center justify-between w-full mt-4 py-2 space-x-2">
+      <span>Toggle Theme</span>
+      <div class="p-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
+        <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+        <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+      </div>
+    </button>
+  </div>
 
   <!-- Header Section -->
   <section class="pt-32 pb-16 px-6 relative">
@@ -253,182 +201,23 @@
         Become Part of <span class="text-primary-600 dark:text-primary-400">CodeClub Reno</span>
       </h1>
       <p class="text-lg md:text-xl mb-10 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Join our diverse community of developers where you can collaborate, learn, and grow your skills in a supportive environment.
+        Ready to join our diverse community of developers? Fill out the form below to get started. We collaborate, learn, and grow our skills together in a supportive environment.
       </p>
     </div>
   </section>
 
-  <!-- Join Form Section -->
-  <section class="py-16 px-6">
-    <div class="container mx-auto">
-      <div class="max-w-3xl mx-auto solid-card p-8 md:p-10">
-        <div class="text-center mb-10">
-          <h2 class="text-2xl md:text-3xl font-bold mb-4">Membership Application</h2>
-          <p class="text-gray-600 dark:text-gray-400">
-            Fill out the form below to start your journey with CodeClub Reno
-          </p>
-        </div>
-
-        <!-- Interactive Form with Glass Morphism -->
-        <form id="join-form" class="space-y-6">
-          <!-- Personal Info Section -->
-          <div class="space-y-4">
-            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
-              Personal Information
-            </h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- First Name -->
-              <div class="floating-label">
-                <input type="text" id="first-name" class="form-input w-full" placeholder=" " required>
-                <label for="first-name">First Name</label>
-              </div>
-              
-              <!-- Last Name -->
-              <div class="floating-label">
-                <input type="text" id="last-name" class="form-input w-full" placeholder=" " required>
-                <label for="last-name">Last Name</label>
-              </div>
-            </div>
-            
-            <!-- Email -->
-            <div class="floating-label">
-              <input type="email" id="email" class="form-input w-full" placeholder=" " required>
-              <label for="email">Email Address</label>
-            </div>
-            
-            <!-- Phone -->
-            <div class="floating-label">
-              <input type="tel" id="phone" class="form-input w-full" placeholder=" " required>
-              <label for="phone">Phone Number</label>
-            </div>
-          </div>
-          
-          <!-- Developer Info Section -->
-          <div class="space-y-4 pt-4">
-            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
-              Developer Information
-            </h3>
-            
-            <!-- Experience Level -->
-            <div>
-              <label for="experience" class="form-label">Experience Level</label>
-              <select id="experience" class="form-select">
-                <option value="">Select your experience level</option>
-                <option value="beginner">Beginner (< 1 year)</option>
-                <option value="intermediate">Intermediate (1-3 years)</option>
-                <option value="advanced">Advanced (3-5 years)</option>
-                <option value="expert">Expert (5+ years)</option>
-              </select>
-            </div>
-            
-            <!-- Skills -->
-            <div>
-              <label class="form-label mb-2">Skills & Technologies (Select all that apply)</label>
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-html" class="form-checkbox">
-                  <label for="skill-html" class="ml-2 text-sm">HTML/CSS</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-js" class="form-checkbox">
-                  <label for="skill-js" class="ml-2 text-sm">JavaScript</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-react" class="form-checkbox">
-                  <label for="skill-react" class="ml-2 text-sm">React</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-node" class="form-checkbox">
-                  <label for="skill-node" class="ml-2 text-sm">Node.js</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-python" class="form-checkbox">
-                  <label for="skill-python" class="ml-2 text-sm">Python</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="skill-other" class="form-checkbox">
-                  <label for="skill-other" class="ml-2 text-sm">Other</label>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Goals -->
-            <div>
-              <label for="goals" class="form-label">What are your goals for joining?</label>
-              <textarea id="goals" rows="4" class="form-input" placeholder="Tell us what you hope to learn or achieve..."></textarea>
-            </div>
-          </div>
-          
-          <!-- Community Engagement -->
-          <div class="space-y-4 pt-4">
-            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
-              Community Engagement
-            </h3>
-            
-            <!-- Interests -->
-            <div>
-              <label class="form-label mb-2">What aspects of the club interest you most?</label>
-              <div class="space-y-2">
-                <div class="flex items-center">
-                  <input type="checkbox" id="interest-projects" class="form-checkbox">
-                  <label for="interest-projects" class="ml-2 text-sm">Collaborative Projects</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="interest-learning" class="form-checkbox">
-                  <label for="interest-learning" class="ml-2 text-sm">Learning New Technologies</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="interest-mentoring" class="form-checkbox">
-                  <label for="interest-mentoring" class="ml-2 text-sm">Mentoring Others</label>
-                </div>
-                <div class="flex items-center">
-                  <input type="checkbox" id="interest-networking" class="form-checkbox">
-                  <label for="interest-networking" class="ml-2 text-sm">Professional Networking</label>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Availability -->
-            <div>
-              <label for="availability" class="form-label">When are you typically available?</label>
-              <select id="availability" class="form-select">
-                <option value="">Select your availability</option>
-                <option value="weekday-evenings">Weekday Evenings</option>
-                <option value="weekday-mornings">Weekday Mornings</option>
-                <option value="weekends">Weekends</option>
-                <option value="flexible">Flexible Schedule</option>
-              </select>
-            </div>
-          </div>
-          
-          <!-- Submit Button - Using the same pill button style -->
-          <div class="pt-6">
-            <button type="submit" class="pill-button w-full px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
-              Submit Application
-            </button>
-            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-              By submitting, you agree to our community guidelines and code of conduct.
-            </p>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Alternative Using Google Form -->
   <section class="py-16 px-6">
     <div class="container mx-auto">
       <div class="max-w-3xl mx-auto text-center mb-10">
-        <span class="inline-block px-3 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 text-sm font-medium mb-4">Alternative Method</span>
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">Using Our Google Form</h2>
+        <span class="inline-block px-3 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 text-sm font-medium mb-4">Application Form</span>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Submit Your Application</h2>
         <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-          If you prefer, you can also use our Google Form to submit your application
+          Please use the Google Form below to apply for membership. We look forward to hearing from you!
         </p>
       </div>
       
       <div class="max-w-3xl mx-auto google-form-container">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
       </div>
     </div>
   </section>
@@ -631,57 +420,6 @@
       }
     });
 
-    // Form submission handler
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('join-form');
-      
-      if (form) {
-        form.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          
-          // Get form data
-          const formData = new FormData(form);
-          const formDataObj = Object.fromEntries(formData.entries());
-          
-          // In a real application, you would send this data to your server
-          // For now, we'll simulate a successful submission
-          console.log('Form data:', formDataObj);
-          
-          // Show success modal
-          const successModal = document.querySelector('[x-data="{ showSuccess: false }"]').__x.$data;
-          successModal.showSuccess = true;
-          
-          // Reset form
-          form.reset();
-        });
-      }
-      
-      // Handle skill checkbox "Other" functionality
-      const otherSkillCheckbox = document.getElementById('skill-other');
-      if (otherSkillCheckbox) {
-        otherSkillCheckbox.addEventListener('change', function() {
-          if (this.checked) {
-            // Create input field for "Other" skill
-            const inputDiv = document.createElement('div');
-            inputDiv.className = 'mt-2';
-            inputDiv.id = 'other-skill-input';
-            
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.name = 'other-skill';
-            input.placeholder = 'Please specify...';
-            input.className = 'form-input text-sm';
-            
-            inputDiv.appendChild(input);
-            this.parentNode.after(inputDiv);
-          } else {
-            // Remove the input field
-            const otherInput = document.getElementById('other-skill-input');
-            if (otherInput) otherInput.remove();
-          }
-        });
-      }
-    });
   </script>
 </body>
 </html>
