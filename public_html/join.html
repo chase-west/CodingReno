@@ -1,49 +1,687 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Coding Club Reno is a community of programmers who believe in project-based learning and community service. Join us to learn and grow together!">
-        <meta name="keywords" content="coding, programming, community, projects, service, learning, club, reno, volunteer, development">
-        <meta name="author" content="Coding Club Reno">
-        <meta name="robots" content="index, follow">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Coding Club Reno</title>
-        <script src="js/dark-mode.js"></script>
-        <script src="js/animations.js"></script>
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="icon" type="image/x-icon" href="/images/codingrenologo.png">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    </head>
-    <body> 
-      <header class="p-3 text-bg-dark">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-          </a>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches), menuOpen: false, scrolled: false }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))" x-bind:class="{ 'dark': darkMode }" @scroll.window="scrolled = window.pageYOffset > 50">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Coding Club Reno</title>
+  <meta name="description" content="Join Coding Club Reno - a community of developers who learn and grow together through project-based experiences.">
+  <meta name="keywords" content="coding, programming, community, projects, service, learning, club, reno, volunteer, development">
+  <meta name="author" content="Coding Club Reno">
+  <meta name="robots" content="index, follow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Google Font - Using Inter for clean modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            primary: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981', // Main primary color
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            secondary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6', // Main secondary color
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+        }
+      }
+    };
+  </script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- GSAP & Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <style>
+    /* Smooth scrolling */
+    html { scroll-behavior: smooth; }
+
+    /* Glass morphism effect */
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dark .glass {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Canvas styling */
+    #background-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Modern hover effects */
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Solid cards */
+    .solid-card {
+      background-color: rgba(255, 255, 255, 0.9); /* Light mode solid background */
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .dark .solid-card {
+      background-color: rgba(31, 41, 55, 0.8); /* Dark mode solid background (gray-800 with opacity) */
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: rgba(16, 185, 129, 0.5);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+      z-index: 9999;
+    }
+
+    /* Pill button styles */
+    .pill-button {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Form styling */
+    .form-input {
+      @apply block w-full px-4 py-3 rounded-lg border-0 ring-1 ring-gray-300 dark:ring-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all;
+    }
+
+    .form-label {
+      @apply block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300;
+    }
+
+    .form-select {
+      @apply block w-full px-4 py-3 rounded-lg border-0 ring-1 ring-gray-300 dark:ring-gray-700 bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm focus:ring-2 focus:ring-primary-500 focus:outline-none transition-all;
+    }
+
+    .form-checkbox {
+      @apply h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:border-gray-700 dark:bg-gray-800/70;
+    }
+
+    /* Custom Google Form container */
+    .google-form-container {
+      width: 100%;
+      height: 100%;
+      min-height: 700px;
+      border-radius: 1rem;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .dark .google-form-container {
+      background-color: rgba(31, 41, 55, 0.8);
+    }
+
+    .google-form-container iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 700px;
+      border: none;
+    }
+
+    /* Floating label input */
+    .floating-label {
+      position: relative;
+    }
+    
+    .floating-label input {
+      height: 60px;
+      padding-top: 20px;
+    }
+    
+    .floating-label label {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      font-size: 14px;
+      color: #6b7280;
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    
+    .floating-label input:focus ~ label,
+    .floating-label input:not(:placeholder-shown) ~ label {
+      top: 8px;
+      font-size: 12px;
+      color: #10b981;
+    }
+    
+    .dark .floating-label label {
+      color: #9ca3af;
+    }
+    
+    .dark .floating-label input:focus ~ label,
+    .dark .floating-label input:not(:placeholder-shown) ~ label {
+      color: #34d399;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans">
+  <div class="cursor" id="custom-cursor"></div>
+  <canvas id="background-canvas"></canvas>
+
+  <!-- Navigation Bar - Using glass morphism -->
+  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
+    <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
+      <a href="index.html" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+        <span class="text-primary-600 dark:text-primary-400 mr-1">&#60;</span>
+        <span class="text-primary-600 dark:text-primary-400">CodeClub Reno</span>
+        <span class="text-primary-600 dark:text-primary-400 ml-1">&#62;</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html#projects" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+        <a href="index.html#community" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+        <a href="index.html#present" class="text-sm font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path x-show="menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden">
+      <a href="index.html#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Projects</a>
+      <a href="index.html#community" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Community</a>
+      <a href="index.html#present" @click="menuOpen = false" class="block font-medium hover:text-primary-600 dark:hover:text-primary-400 transition">Present</a>
+      <button @click="darkMode = !darkMode" class="flex items-center justify-between w-full mt-4 py-2 space-x-2">
+        <span>Toggle Theme</span>
+        <div class="p-1.5 rounded-full bg-gray-200 dark:bg-gray-700">
+          <svg x-show="!darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+          <svg x-show="darkMode" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+        </div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Header Section -->
+  <section class="pt-32 pb-16 px-6 relative">
+    <div class="container mx-auto text-center">
+      <div class="inline-block mb-6 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium text-primary-600 dark:text-primary-400">
+        Join Our Community
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+        Become Part of <span class="text-primary-600 dark:text-primary-400">CodeClub Reno</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-10 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Join our diverse community of developers where you can collaborate, learn, and grow your skills in a supportive environment.
+      </p>
+    </div>
+  </section>
+
+  <!-- Join Form Section -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-3xl mx-auto solid-card p-8 md:p-10">
+        <div class="text-center mb-10">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">Membership Application</h2>
+          <p class="text-gray-600 dark:text-gray-400">
+            Fill out the form below to start your journey with CodeClub Reno
+          </p>
+        </div>
+
+        <!-- Interactive Form with Glass Morphism -->
+        <form id="join-form" class="space-y-6">
+          <!-- Personal Info Section -->
+          <div class="space-y-4">
+            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
+              Personal Information
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- First Name -->
+              <div class="floating-label">
+                <input type="text" id="first-name" class="form-input w-full" placeholder=" " required>
+                <label for="first-name">First Name</label>
+              </div>
+              
+              <!-- Last Name -->
+              <div class="floating-label">
+                <input type="text" id="last-name" class="form-input w-full" placeholder=" " required>
+                <label for="last-name">Last Name</label>
+              </div>
+            </div>
+            
+            <!-- Email -->
+            <div class="floating-label">
+              <input type="email" id="email" class="form-input w-full" placeholder=" " required>
+              <label for="email">Email Address</label>
+            </div>
+            
+            <!-- Phone -->
+            <div class="floating-label">
+              <input type="tel" id="phone" class="form-input w-full" placeholder=" " required>
+              <label for="phone">Phone Number</label>
+            </div>
+          </div>
+          
+          <!-- Developer Info Section -->
+          <div class="space-y-4 pt-4">
+            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
+              Developer Information
+            </h3>
+            
+            <!-- Experience Level -->
+            <div>
+              <label for="experience" class="form-label">Experience Level</label>
+              <select id="experience" class="form-select">
+                <option value="">Select your experience level</option>
+                <option value="beginner">Beginner (< 1 year)</option>
+                <option value="intermediate">Intermediate (1-3 years)</option>
+                <option value="advanced">Advanced (3-5 years)</option>
+                <option value="expert">Expert (5+ years)</option>
+              </select>
+            </div>
+            
+            <!-- Skills -->
+            <div>
+              <label class="form-label mb-2">Skills & Technologies (Select all that apply)</label>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-html" class="form-checkbox">
+                  <label for="skill-html" class="ml-2 text-sm">HTML/CSS</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-js" class="form-checkbox">
+                  <label for="skill-js" class="ml-2 text-sm">JavaScript</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-react" class="form-checkbox">
+                  <label for="skill-react" class="ml-2 text-sm">React</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-node" class="form-checkbox">
+                  <label for="skill-node" class="ml-2 text-sm">Node.js</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-python" class="form-checkbox">
+                  <label for="skill-python" class="ml-2 text-sm">Python</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="skill-other" class="form-checkbox">
+                  <label for="skill-other" class="ml-2 text-sm">Other</label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Goals -->
+            <div>
+              <label for="goals" class="form-label">What are your goals for joining?</label>
+              <textarea id="goals" rows="4" class="form-input" placeholder="Tell us what you hope to learn or achieve..."></textarea>
+            </div>
+          </div>
+          
+          <!-- Community Engagement -->
+          <div class="space-y-4 pt-4">
+            <h3 class="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-4">
+              Community Engagement
+            </h3>
+            
+            <!-- Interests -->
+            <div>
+              <label class="form-label mb-2">What aspects of the club interest you most?</label>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <input type="checkbox" id="interest-projects" class="form-checkbox">
+                  <label for="interest-projects" class="ml-2 text-sm">Collaborative Projects</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="interest-learning" class="form-checkbox">
+                  <label for="interest-learning" class="ml-2 text-sm">Learning New Technologies</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="interest-mentoring" class="form-checkbox">
+                  <label for="interest-mentoring" class="ml-2 text-sm">Mentoring Others</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="interest-networking" class="form-checkbox">
+                  <label for="interest-networking" class="ml-2 text-sm">Professional Networking</label>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Availability -->
+            <div>
+              <label for="availability" class="form-label">When are you typically available?</label>
+              <select id="availability" class="form-select">
+                <option value="">Select your availability</option>
+                <option value="weekday-evenings">Weekday Evenings</option>
+                <option value="weekday-mornings">Weekday Mornings</option>
+                <option value="weekends">Weekends</option>
+                <option value="flexible">Flexible Schedule</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Submit Button - Using the same pill button style -->
+          <div class="pt-6">
+            <button type="submit" class="pill-button w-full px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+              Submit Application
+            </button>
+            <p class="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
+              By submitting, you agree to our community guidelines and code of conduct.
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alternative Using Google Form -->
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-3xl mx-auto text-center mb-10">
+        <span class="inline-block px-3 py-1 rounded-full bg-secondary-100 dark:bg-secondary-900/30 text-secondary-600 dark:text-secondary-400 text-sm font-medium mb-4">Alternative Method</span>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Using Our Google Form</h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+          If you prefer, you can also use our Google Form to submit your application
+        </p>
+      </div>
       
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="home" class="nav-link px-2 text-white">Home</a></li>
-            <li><a href="about" class="nav-link px-2 text-white">About</a></li>
-            <!--<li><a href="projects.html" class="nav-link px-2 text-white">Projects</a></li>-->
-            <li><a href="service" class="nav-link px-2 text-white">Service</a></li>
-          </ul>
-          <div class="text-end">
-            <a href="join"><button type="button" class="btn btn-outline-light me-2">Join Now</button></a>
-            <button id="theme-toggle-button" onclick="switchMode()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
-              <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
-            </svg></button>
+      <div class="max-w-3xl mx-auto google-form-container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Benefits Section -->
+  <section class="py-24 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-sm font-medium mb-4">Why Join Us</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Benefits of Membership</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          As a member of CodeClub Reno, you'll gain access to a variety of resources and opportunities
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Benefit Card 1 -->
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Community Network</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Connect with like-minded developers, from beginners to experts, and build lasting professional relationships.
+          </p>
+        </div>
+        
+        <!-- Benefit Card 2 -->
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Hands-On Learning</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Participate in real-world projects, code challenges, and workshops to develop practical skills employers value.
+          </p>
+        </div>
+
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Career Opportunities</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">
+            Get connected to local job opportunities, internships, and freelance projects through our industry partners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-900 text-white py-12 px-6">
+    <div class="container mx-auto">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4 flex items-center">
+            <span class="text-primary-400 mr-1">&#60;</span>
+            <span class="text-primary-400">CodeClub Reno</span>
+            <span class="text-primary-400 ml-1">&#62;</span>
+          </h3>
+          <p class="text-gray-400 mb-4">Building a community of developers in the Reno area through collaboration, education, and service.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-300 hover:text-primary-400 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-primary-400 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-300 hover:text-primary-400 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+              </svg>
+            </a>
           </div>
         </div>
-      </header>
-      
-      <main>
-        <iframe class="application-form" src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="640" height="991" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-      </main>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-primary-400 transition">Home</a></li>
+            <li><a href="index.html#projects" class="text-gray-400 hover:text-primary-400 transition">Projects</a></li>
+            <li><a href="index.html#community" class="text-gray-400 hover:text-primary-400 transition">Community</a></li>
+            <li><a href="index.html#present" class="text-gray-400 hover:text-primary-400 transition">Present</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+          <p class="text-gray-400 mb-2">hello@codingclubreno.org</p>
+          <p class="text-gray-400 mb-2">Reno, Nevada</p>
+          <p class="text-gray-400">Meet-ups every Thursday at 6pm</p>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2025 CodeClub Reno. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-      <footer>
-        <p>&copy; 2024 Coding Club Reno &middot; <a href="#"></p>
-      </footer>
-    </body>
+  <!-- Form submission and success modal -->
+  <div x-data="{ showSuccess: false }" class="relative z-50">
+    <!-- Success Modal -->
+    <div x-show="showSuccess" x-transition class="fixed inset-0 flex items-center justify-center z-50 p-4">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="showSuccess = false"></div>
+      
+      <!-- Modal -->
+      <div class="relative bg-white dark:bg-gray-800 rounded-xl p-8 max-w-md mx-auto shadow-2xl">
+        <button @click="showSuccess = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">Application Submitted!</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-6">
+            Thank you for your interest in joining CodeClub Reno. We've received your application and will be in touch shortly.
+          </p>
+          <button @click="showSuccess = false" class="pill-button px-8 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Background animation with Three.js
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Three.js scene
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('background-canvas'), alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Create particles
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 1000;
+      const posArray = new Float32Array(particlesCount * 3);
+      
+      for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 10;
+      }
+      
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      
+      // Create material
+      const particlesMaterial = new THREE.PointsMaterial({ 
+        size: 0.02,
+        transparent: true,
+        opacity: 0.8,
+        color: 0x10b981
+      });
+      
+      // Create the particle system
+      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particlesMesh);
+      
+      camera.position.z = 2;
+      
+      // Animation loop
+      const animate = () => {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.y += 0.0005;
+        particlesMesh.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+      };
+      
+      animate();
+      
+      // Handle resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    });
+
+    // Custom cursor
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.getElementById('custom-cursor');
+      if (cursor) {
+        gsap.to(cursor, { duration: 0.1, x: e.clientX, y: e.clientY });
+      }
+    });
+
+    // Form submission handler
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('join-form');
+      
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = new FormData(form);
+          const formDataObj = Object.fromEntries(formData.entries());
+          
+          // In a real application, you would send this data to your server
+          // For now, we'll simulate a successful submission
+          console.log('Form data:', formDataObj);
+          
+          // Show success modal
+          const successModal = document.querySelector('[x-data="{ showSuccess: false }"]').__x.$data;
+          successModal.showSuccess = true;
+          
+          // Reset form
+          form.reset();
+        });
+      }
+      
+      // Handle skill checkbox "Other" functionality
+      const otherSkillCheckbox = document.getElementById('skill-other');
+      if (otherSkillCheckbox) {
+        otherSkillCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            // Create input field for "Other" skill
+            const inputDiv = document.createElement('div');
+            inputDiv.className = 'mt-2';
+            inputDiv.id = 'other-skill-input';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'other-skill';
+            input.placeholder = 'Please specify...';
+            input.className = 'form-input text-sm';
+            
+            inputDiv.appendChild(input);
+            this.parentNode.after(inputDiv);
+          } else {
+            // Remove the input field
+            const otherInput = document.getElementById('other-skill-input');
+            if (otherInput) otherInput.remove();
+          }
+        });
+      }
+    });
+  </script>
+</body>
 </html>
