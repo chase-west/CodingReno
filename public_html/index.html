@@ -143,16 +143,16 @@
   <!-- Navigation Bar - Now using glass morphism -->
  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
     <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
-      <a href="#hero" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+      <a href="/" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center"> 
         <span class="text-primary-400 mr-1">&#60;</span>
         <span class="text-primary-400">Coding Reno</span>
         <span class="text-primary-400 ml-1">&#62;</span>
       </a>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#projects" class="text-sm font-medium hover:text-primary-400 transition">Projects</a>
-        <a href="#community" class="text-sm font-medium hover:text-primary-400 transition">Community</a>
-        <a href="project-showcase.html" class="text-sm font-medium hover:text-primary-400 transition">Showcase</a>
-        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+        <a href="#projects" class="text-sm font-medium hover:text-primary-400 transition">Projects</a> 
+        <a href="#community" class="text-sm font-medium hover:text-primary-400 transition">Community</a> 
+        <a href="/showcase" class="text-sm font-medium hover:text-primary-400 transition">Showcase</a> 
+        <a href="/join" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a> 
       </div>
       <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -165,10 +165,10 @@
 
   <!-- Keep this mobile menu block -->
   <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden fixed top-0 left-0 w-full pt-20 mt-0 bg-gray-900 z-40">
-    <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Projects</a>
-    <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Community</a>
-    <a href="project-showcase.html" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Showcase</a>
-    <a href="join.html" @click="menuOpen = false" class="pill-button block text-center text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+    <a href="#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Projects</a> 
+    <a href="#community" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Community</a> 
+    <a href="/showcase" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Showcase</a> 
+    <a href="/join" @click="menuOpen = false" class="pill-button block text-center text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a> 
   </div>
 
   <!-- Hero Section with enhanced 3D particles -->
@@ -190,7 +190,7 @@
         <a href="#projects" class="pill-button inline-block px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
           Explore Projects
         </a>
-        <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium rounded-full shadow hover:shadow-lg hover:bg-white/20 transition">
+        <a href="/join" class="pill-button inline-block px-8 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 text-white font-medium rounded-full shadow hover:shadow-lg hover:bg-white/20 transition">
           Join Our Community
         </a>
       </div>
@@ -223,7 +223,7 @@
         <p class="text-gray-400 mb-4">
           Sharpen your problem-solving with algorithmic puzzles on Codewars, LeetCode, and HackerRank.
         </p>
-        <a href="project-showcase.html#code-challenges" class="inline-flex items-center text-primary-400 font-medium">
+        <a href="/showcase#code-challenges" class="inline-flex items-center text-primary-400 font-medium">
           Learn more
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -240,7 +240,7 @@
         <p class="text-gray-400 mb-4">
           Build responsive, interactive websites using HTML, CSS, JavaScript, and frameworks like React and Vue.
         </p>
-        <a href="project-showcase.html#website-projects" class="inline-flex items-center text-primary-400 font-medium">
+        <a href="/showcase#website-projects" class="inline-flex items-center text-primary-400 font-medium">
           Learn more
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -255,7 +255,7 @@
         <p class="text-gray-400 mb-4">
           Dive into libraries like D3.js, Three.js, Tailwind CSS, and more to expand your toolkit and creativity.
         </p>
-        <a href="project-showcase.html#library-explorations" class="inline-flex items-center text-primary-400 font-medium">
+        <a href="/showcase#library-explorations" class="inline-flex items-center text-primary-400 font-medium">
           Learn more
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -264,7 +264,7 @@
       </div>
     </div>
     <div class="text-center mt-12">
-      <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+      <a href="/join" class="pill-button inline-block px-8 py-3.5 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
         Join a Project
       </a>
     </div>
@@ -312,7 +312,7 @@
             </div>
           </div>
 
-          <a href="join.html" class="pill-button inline-block px-8 py-3.5 bg-secondary-500 hover:bg-secondary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+          <a href="/join" class="pill-button inline-block px-8 py-3.5 bg-secondary-500 hover:bg-secondary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
             Join Our Community
           </a>
         </div>
@@ -340,7 +340,7 @@
           </div>
           
           <div class="flex flex-col sm:flex-row justify-center gap-5">
-            <a href="join.html" class="pill-button group inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+            <a href="/join" class="pill-button group inline-flex items-center justify-center px-8 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
               <span>Join Coding Reno</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />

@@ -82,16 +82,16 @@
   <!-- Navigation Bar -->
  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
     <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
-      <a href="index.html#hero" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+      <a href="/" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center"> 
         <span class="text-primary-400 mr-1">&#60;</span>
         <span class="text-primary-400">Coding Reno</span>
         <span class="text-primary-400 ml-1">&#62;</span>
       </a>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="#code-challenges" class="text-sm font-medium hover:text-primary-400 transition">Challenges</a>
-        <a href="#website-projects" class="text-sm font-medium hover:text-primary-400 transition">Websites</a>
-        <a href="#library-explorations" class="text-sm font-medium hover:text-primary-400 transition">Libraries</a>
-        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+        <a href="#code-challenges" class="text-sm font-medium hover:text-primary-400 transition">Challenges</a> 
+        <a href="#website-projects" class="text-sm font-medium hover:text-primary-400 transition">Websites</a> 
+        <a href="#library-explorations" class="text-sm font-medium hover:text-primary-400 transition">Libraries</a> 
+        <a href="/join" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a> 
       </div>
       <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,10 +104,10 @@
 
   <!-- Mobile Menu -->
   <div x-show="menuOpen" class="glass px-6 py-5 space-y-4 md:hidden fixed top-0 left-0 w-full pt-20 bg-gray-900">
-    <a href="#code-challenges" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Challenges</a>
-    <a href="#website-projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Websites</a>
-    <a href="#library-explorations" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Libraries</a>
-    <a href="join.html" target="_blank" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+    <a href="#code-challenges" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Challenges</a> 
+    <a href="#website-projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Websites</a> 
+    <a href="#library-explorations" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Libraries</a> 
+    <a href="/join" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a> 
   </div>
 
   <!-- Page Header -->
