@@ -1,7 +1,15 @@
-RewriteEngine On
-RewriteRule ^home$ /index.html [L]
-RewriteRule ^service$ /service.html [L]
-RewriteRule ^projects$ /projects.html [L]
-RewriteRule ^join$ /join.html [L]
-RewriteRule ^about$ /about.html [L]
-RewriteRule ^showcase$ /project-showcase.html [L]
+# turn off MultiViews so Apache won’t do its own filename matching
+Options -MultiViews
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # serve index.html for /home
+  RewriteRule ^home/?$           index.html             [L]
+  RewriteRule ^service/?$        service.html           [L]
+  RewriteRule ^projects/?$       projects.html          [L]
+  RewriteRule ^join/?$           join.html              [L]
+  RewriteRule ^about/?$          about.html             [L]
+  RewriteRule ^showcase/?$       project-showcase.html  [L]
+</IfModule>
