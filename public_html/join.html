@@ -1,49 +1,362 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Coding Club Reno is a community of programmers who believe in project-based learning and community service. Join us to learn and grow together!">
-        <meta name="keywords" content="coding, programming, community, projects, service, learning, club, reno, volunteer, development">
-        <meta name="author" content="Coding Club Reno">
-        <meta name="robots" content="index, follow">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Coding Club Reno</title>
-        <script src="js/dark-mode.js"></script>
-        <script src="js/animations.js"></script>
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="icon" type="image/x-icon" href="/images/codingrenologo.png">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    </head>
-    <body> 
-      <header class="p-3 text-bg-dark">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-          </a>
-      
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li><a href="home" class="nav-link px-2 text-white">Home</a></li>
-            <li><a href="about" class="nav-link px-2 text-white">About</a></li>
-            <!--<li><a href="projects.html" class="nav-link px-2 text-white">Projects</a></li>-->
-            <li><a href="service" class="nav-link px-2 text-white">Service</a></li>
-          </ul>
-          <div class="text-end">
-            <a href="join"><button type="button" class="btn btn-outline-light me-2">Join Now</button></a>
-            <button id="theme-toggle-button" onclick="switchMode()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon-fill" viewBox="0 0 16 16">
-              <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
-            </svg></button>
-          </div>
-        </div>
-      </header>
-      
-      <main>
-        <iframe class="application-form" src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="640" height="991" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-      </main>
+<html lang="en" x-data="{ menuOpen: false, scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 50">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join Coding Club Reno</title>
+  <meta name="description" content="Join Coding Club Reno - a community of developers who learn and grow together through project-based experiences.">
+  <meta name="keywords" content="coding, programming, community, projects, service, learning, club, reno, volunteer, development">
+  <meta name="author" content="Coding Club Reno">
+  <meta name="robots" content="index, follow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Google Font - Using Inter for clean modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            primary: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981', // Main primary color
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            secondary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6', // Main secondary color
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+        }
+      }
+    };
+  </script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- GSAP & Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <style>
+    /* Smooth scrolling */
+    html { scroll-behavior: smooth; }
 
-      <footer>
-        <p>&copy; 2024 Coding Club Reno &middot; <a href="#"></p>
-      </footer>
-    </body>
+    /* Glass morphism effect - Updated to dark theme default */
+    .glass {
+      background: rgba(0, 0, 0, 0.2); /* Was dark .glass */
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05); /* Was dark .glass */
+    }
+
+    /* Canvas styling */
+    #background-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Modern hover effects */
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Solid cards - Updated to dark theme default */
+    .solid-card {
+      background-color: rgba(31, 41, 55, 0.8); /* Was dark .solid-card (gray-800 with opacity) */
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: rgba(16, 185, 129, 0.5);
+      pointer-events: none;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease;
+      z-index: 9999;
+    }
+
+    /* Pill button styles */
+    .pill-button {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Custom Google Form container - Updated to dark theme default */
+    .google-form-container {
+      width: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background-color: rgba(31, 41, 55, 0.8); /* Was dark .google-form-container */
+    }
+
+    .google-form-container iframe {
+      width: 100%;
+      height: 1000px;
+      min-height: 900px;
+      border: none;
+      display: block;
+    }
+    
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <div class="cursor" id="custom-cursor"></div>
+  <canvas id="background-canvas"></canvas>
+
+  <!-- Navigation Bar - Using glass morphism -->
+  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
+    <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
+      <a href="index.html" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+        <span class="text-primary-400 mr-1">&#60;</span>
+        <span class="text-primary-400">Coding Reno</span>
+        <span class="text-primary-400 ml-1">&#62;</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="index.html#projects" class="text-sm font-medium hover:text-primary-400 transition">Projects</a>
+        <a href="index.html#community" class="text-sm font-medium hover:text-primary-400 transition">Community</a>
+        <a href="project-showcase.html" class="text-sm font-medium hover:text-primary-400 transition">Showcase</a>
+        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      </div>
+      <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path x-show="menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu - Moved outside nav and added overlay styles -->
+  <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="glass px-6 py-5 space-y-4 md:hidden fixed top-0 left-0 w-full pt-20 mt-0 bg-gray-900 z-40">
+    <a href="index.html#projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Projects</a>
+    <a href="index.html#community" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Community</a>
+    <a href="project-showcase.html" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Showcase</a>
+    <a href="join.html" @click="menuOpen = false" class="pill-button block text-center text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+  </div>
+
+  <!-- Header Section -->
+  <section class="pt-32 pb-16 px-6 relative">
+    <div class="container mx-auto text-center">
+      <div class="inline-block mb-6 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-medium text-primary-400">
+        Join Our Community
+      </div>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-white">
+        Become Part of <span class="text-primary-400">Coding Reno</span>
+      </h1>
+      <p class="text-lg md:text-xl mb-10 text-gray-300 max-w-2xl mx-auto">
+        Ready to join our diverse community of developers? Fill out the form below to get started. We collaborate, learn, and grow our skills together in a supportive environment.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 px-6">
+    <div class="container mx-auto">
+      <div class="max-w-3xl mx-auto text-center mb-10">
+        <span class="inline-block px-3 py-1 rounded-full bg-secondary-900/30 text-secondary-400 text-sm font-medium mb-4">Application Form</span>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Submit Your Application</h2>
+        <p class="text-gray-400 max-w-xl mx-auto">
+          Please use the Google Form below to apply for membership. We look forward to hearing from you!
+        </p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto google-form-container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3hzQtLJwxzlH1TU7hm_kB3FisrdCoOcf5ujgGcjA4LQBXpg/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Benefits Section -->
+  <section class="py-24 px-6">
+    <div class="container mx-auto">
+      <div class="text-center mb-16">
+        <span class="inline-block px-3 py-1 rounded-full bg-primary-900/30 text-primary-400 text-sm font-medium mb-4">Why Join Us</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Benefits of Membership</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          As a member of Coding Reno, you'll gain access to a variety of resources and opportunities
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Benefit Card 1: Community Focus -->
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Connect & Collaborate</h3>
+          <p class="text-gray-400 mb-4">
+            Meet fellow students passionate about coding. Share ideas, work together on projects, and make new friends in a supportive and fun environment.
+          </p>
+        </div>
+        
+        <!-- Benefit Card 2: Skill Building Focus -->
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17.25v-.001M9.75 14.25v-.001M14.25 17.25v-.001M14.25 14.25v-.001M5.25 12h13.5M16.5 4.75h-9a2 2 0 0 0-2 2v10.5a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V6.75a2 2 0 0 0-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Learn & Create</h3>
+          <p class="text-gray-400 mb-4">
+            Explore coding basics, try out new technologies like web or game development, and work on exciting projects to build your skills and creativity.
+          </p>
+        </div>
+
+        <!-- Benefit Card 3: Exploration Focus -->
+        <div class="solid-card p-6 hover-lift">
+          <div class="w-12 h-12 mb-4 rounded-lg bg-primary-500 flex items-center justify-center text-white">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+               <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+             </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Explore Your Future</h3>
+          <p class="text-gray-400 mb-4">
+            Discover different areas of technology, gain skills valuable for college and future paths, and maybe even participate in coding challenges or events.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-gray-900 text-white py-12 px-6">
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2025 Coding Reno. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Form submission and success modal -->
+  <div x-data="{ showSuccess: false }" class="relative z-50">
+    <!-- Success Modal -->
+    <div x-show="showSuccess" x-transition class="fixed inset-0 flex items-center justify-center z-50 p-4">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="showSuccess = false"></div>
+      
+      <!-- Modal - Updated background to dark theme default -->
+      <div class="relative bg-gray-800 rounded-xl p-8 max-w-md mx-auto shadow-2xl">
+        <button @click="showSuccess = false" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">Application Submitted!</h3>
+          <p class="text-gray-400 mb-6">
+            Thank you for your interest in joining Coding Reno. We've received your application and will be in touch shortly.
+          </p>
+          <button @click="showSuccess = false" class="pill-button px-8 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-full shadow-lg hover:shadow-xl transition">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Background animation with Three.js
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize Three.js scene
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('background-canvas'), alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Create particles
+      const particlesGeometry = new THREE.BufferGeometry();
+      const particlesCount = 1000;
+      const posArray = new Float32Array(particlesCount * 3);
+      
+      for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 10;
+      }
+      
+      particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      
+      // Create material
+      const particlesMaterial = new THREE.PointsMaterial({ 
+        size: 0.02,
+        transparent: true,
+        opacity: 0.8,
+        color: 0x10b981
+      });
+      
+      // Create the particle system
+      const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+      scene.add(particlesMesh);
+      
+      camera.position.z = 2;
+      
+      // Animation loop
+      const animate = () => {
+        requestAnimationFrame(animate);
+        particlesMesh.rotation.y += 0.0005;
+        particlesMesh.rotation.x += 0.0002;
+        renderer.render(scene, camera);
+      };
+      
+      animate();
+      
+      // Handle resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    });
+
+    // Custom cursor
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.getElementById('custom-cursor');
+      if (cursor) {
+        gsap.to(cursor, { duration: 0.1, x: e.clientX, y: e.clientY });
+      }
+    });
+
+  </script>
+</body>
 </html>

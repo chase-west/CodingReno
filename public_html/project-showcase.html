@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ menuOpen: false, scrolled: false }" @scroll.window="scrolled = window.pageYOffset > 50">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Showcase - Coding Reno</title>
+  <!-- Google Font - Using Inter for clean modern look -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif']
+          },
+          colors: {
+            primary: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            },
+            secondary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+        }
+      }
+    };
+  </script>
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .glass {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .hover-lift {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .solid-card {
+      background-color: rgba(31, 41, 55, 0.8);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    .pill-button {
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+
+  <!-- Navigation Bar -->
+ <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
+    <div class="container mx-auto flex items-center justify-between px-6" :class="scrolled ? 'py-3' : 'py-5'">
+      <a href="index.html#hero" class="relative z-10 text-xl sm:text-2xl font-semibold tracking-tight flex items-center">
+        <span class="text-primary-400 mr-1">&#60;</span>
+        <span class="text-primary-400">Coding Reno</span>
+        <span class="text-primary-400 ml-1">&#62;</span>
+      </a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#code-challenges" class="text-sm font-medium hover:text-primary-400 transition">Challenges</a>
+        <a href="#website-projects" class="text-sm font-medium hover:text-primary-400 transition">Websites</a>
+        <a href="#library-explorations" class="text-sm font-medium hover:text-primary-400 transition">Libraries</a>
+        <a href="join.html" class="pill-button text-sm px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+      </div>
+      <button @click="menuOpen = !menuOpen" class="md:hidden focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path x-show="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path x-show="menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div x-show="menuOpen" class="glass px-6 py-5 space-y-4 md:hidden fixed top-0 left-0 w-full pt-20 bg-gray-900">
+    <a href="#code-challenges" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Challenges</a>
+    <a href="#website-projects" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Websites</a>
+    <a href="#library-explorations" @click="menuOpen = false" class="block font-medium hover:text-primary-400 transition">Libraries</a>
+    <a href="join.html" target="_blank" @click="menuOpen = false" class="pill-button block text-center px-6 py-2.5 bg-primary-500 hover:bg-primary-600 text-white rounded-full shadow-lg hover:shadow-xl transition">Join Now</a>
+  </div>
+
+  <!-- Page Header -->
+  <header class="pt-32 pb-16 bg-gray-800">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Project Showcase</h1>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto">Explore the diverse range of projects our community members work on.</p>
+    </div>
+  </header>
+
+  <!-- Code Challenges Section -->
+  <section id="code-challenges" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 rounded-full bg-primary-900/30 text-primary-400 text-sm font-medium mb-4">Category</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Code Challenges</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Algorithmic puzzles and problem-solving exercises from platforms like Codewars.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Sum of Two Smallest Numbers</h3>
+          <p class="text-gray-400 mb-4">A challenge on Codewars focusing on array manipulation.</p>
+          <a href="https://www.codewars.com/kata/558fc85d8fd1938afb000014" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View on Codewars <span class="ml-1">→</span></a>
+        </div>
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Valid Parentheses</h3>
+          <p class="text-gray-400 mb-4">Stack-based validation challenge from Codewars.</p>
+          <a href="https://www.codewars.com/kata/52774a314c2333f0a7000688" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View on Codewars <span class="ml-1">→</span></a>
+        </div>
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Persistent Bugger</h3>
+          <p class="text-gray-400 mb-4">A problem-solving exercise on Codewars involving number persistence.</p>
+          <a href="https://www.codewars.com/kata/55bf01e5a717a0d57e0000ec" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View on Codewars <span class="ml-1">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Website Projects Section -->
+  <section id="website-projects" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 rounded-full bg-secondary-900/30 text-secondary-400 text-sm font-medium mb-4">Category</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Website Projects</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Full-stack applications, landing pages, and interactive web experiences built by our members.
+        </p>
+      </div>
+      <div class="flex justify-center">
+        <div class="solid-card p-6 hover-lift lg:max-w-lg">
+          <img src="images/sustainableenergypic.png" alt="Sustainable Energy Modeling" class="rounded-md mb-4 aspect-video object-cover">
+          <h3 class="text-xl font-semibold mb-2">Sustainable Energy Modeling</h3>
+          <p class="text-gray-400 mb-4">Interactive website visualizing renewable energy data.</p>
+          <a href="https://sustainable-energy-model.onrender.com/" target="_blank" class="inline-flex items-center text-secondary-400 font-medium mr-4">Live Demo <span class="ml-1">→</span></a>
+          <a href ="https://github.com/chase-west/Sustainable-Energy-Model" target="_blank" class="inline-flex items-center text-secondary-400 font-medium">View Code <span class="ml-1">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Library Explorations Section -->
+  <section id="library-explorations" class="py-20 bg-gray-900">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="inline-block px-3 py-1 rounded-full bg-primary-900/30 text-primary-400 text-sm font-medium mb-4">Category</span>
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Library Explorations</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Experiments and deep dives into specific libraries and frameworks like Three.js, D3.js, and more.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Wordle Reinforcement Learning</h3>
+          <p class="text-gray-400 mb-4">Implementing RL to solve Wordle in Python.</p>
+          <a href="https://github.com/chase-west/Wordle-Reinforcement-Learning" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View Repo <span class="ml-1">→</span></a>
+        </div>
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Hand Tracking Operations</h3>
+          <p class="text-gray-400 mb-4">Exploring hand tracking and gesture recognition techniques.</p>
+          <a href="https://github.com/chase-west/HandTrackingOperations" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View Repo <span class="ml-1">→</span></a>
+        </div>
+        <div class="solid-card p-6 hover-lift">
+          <h3 class="text-xl font-semibold mb-2">Gravity Simulation</h3>
+          <p class="text-gray-400 mb-4">A simple gravity simulation implemented in Java.</p>
+          <a href="https://github.com/chase-west/GravitySim" target="_blank" class="inline-flex items-center text-primary-400 font-medium">View Repo <span class="ml-1">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 text-center text-gray-400 text-sm">
+    <p>© <span x-text="new Date().getFullYear()"></span> Coding Reno. All rights reserved.</p>
+  </footer>
+
+  <!-- GSAP & Scroll Animations -->
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.container').forEach(section => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        scrollTrigger: { trigger: section, start: 'top 80%', once: true }
+      });
+    });
+  </script>
+</body>
+</html>
