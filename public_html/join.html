@@ -94,18 +94,20 @@
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
-    /* Custom cursor */
-    .cursor {
-      position: fixed;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: rgba(16, 185, 129, 0.5);
-      pointer-events: none;
-      mix-blend-mode: difference;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease;
-      z-index: 9999;
+    /* Custom cursor - Only show on medium screens and up */
+    @media (min-width: 768px) {
+      .cursor {
+        position: fixed;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: rgba(16, 185, 129, 0.5);
+        pointer-events: none;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease;
+        z-index: 9999;
+      }
     }
 
     /* Pill button styles */

@@ -75,9 +75,25 @@
       position: relative;
       overflow: hidden;
     }
+    /* Custom cursor - Only show on medium screens and up */
+    @media (min-width: 768px) {
+      .cursor {
+        position: fixed;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: rgba(16, 185, 129, 0.5); /* primary-500 with opacity */
+        pointer-events: none;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s ease;
+        z-index: 9999;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
+  <div class="cursor" id="custom-cursor"></div>
 
   <!-- Navigation Bar -->
  <nav class="fixed w-full top-0 z-50 transition-all duration-300" :class="{'glass shadow-lg': scrolled || menuOpen, 'bg-transparent': !scrolled && !menuOpen}">
@@ -216,6 +232,34 @@
         scrollTrigger: { trigger: section, start: 'top 80%', once: true }
       });
     });
+
+    // Custom cursor effect
+    const cursor = document.getElementById('custom-cursor');
+
+    // Only run cursor logic on non-touch devices / larger screens if needed
+    if (window.matchMedia('(min-width: 768px)').matches) {
+        document.addEventListener('mousemove', (e) => {
+          gsap.to(cursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.1
+          });
+        });
+
+        document.addEventListener('mousedown', () => {
+          gsap.to(cursor, {
+            scale: 1.5,
+            duration: 0.2
+          });
+        });
+
+        document.addEventListener('mouseup', () => {
+          gsap.to(cursor, {
+            scale: 1,
+            duration: 0.2
+          });
+        });
+    }
   </script>
 </body>
 </html>
