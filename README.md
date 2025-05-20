@@ -1,5 +1,5 @@
-CodingReno
-Template for the bs-config.js file for routing.
+[Production Website!!](https://codingreno.com)
+
 
 This configuration enables BrowserSync to serve .html files with clean routes like /about instead of /about.html.
 
