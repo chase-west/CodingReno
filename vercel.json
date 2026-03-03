@@ -1,0 +1,13 @@
+{
+  "framework": null,
+  "buildCommand": null,
+  "outputDirectory": "public_html",
+  "rewrites": [
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/service", "destination": "/service.html" },
+    { "source": "/join", "destination": "/join.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/showcase", "destination": "/project-showcase.html" },
+    { "source": "/contact", "destination": "/contact.html" }
+  ]
+}
